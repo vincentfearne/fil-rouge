@@ -2,7 +2,6 @@ CREATE DATABASE SoundsTalented;
 
 USE DATABASE SoundsTalented;
 
-
 CREATE TABLE client(
    cli_id INT NOT NULL AUTO_INCREMENT,
    cli_type VARCHAR(13),
@@ -11,6 +10,7 @@ CREATE TABLE client(
    cli_telephone VARCHAR(15),
    cli_mail VARCHAR(255),
    cli_mdp VARCHAR(50),
+   cli_photo VARCHAR(255),
    PRIMARY KEY(cli_id)
 );
 
@@ -45,7 +45,9 @@ CREATE TABLE adresse(
    ad_dep VARCHAR(10),
    ad_ville VARCHAR(100),
    ad_pays VARCHAR(50),
-   PRIMARY KEY(ad_id)
+   cli_id INT NOT NULL,
+   PRIMARY KEY(ad_id),
+   FOREIGN KEY(cli_id) REFERENCES client(cli_id)
 );
 
 CREATE TABLE produit(
@@ -84,12 +86,4 @@ CREATE TABLE detail(
    UNIQUE(pro_id),
    FOREIGN KEY(pro_id) REFERENCES produit(pro_id),
    FOREIGN KEY(com_id) REFERENCES commande(com_id)
-);
-
-CREATE TABLE possede(
-   cli_id INT NOT NULL AUTO_INCREMENT,
-   ad_id INT,
-   PRIMARY KEY(cli_id, ad_id),
-   FOREIGN KEY(cli_id) REFERENCES client(cli_id),
-   FOREIGN KEY(ad_id) REFERENCES adresse(ad_id)
 );
